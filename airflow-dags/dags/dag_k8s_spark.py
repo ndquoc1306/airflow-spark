@@ -17,19 +17,24 @@ with DAG(
     # [START SparkKubernetesOperator_DAG]
     t1 = SparkKubernetesOperator(
         task_id="spark_cf0001",
+        trigger_rule="all_success",
+        depends_on_past=False,
         kubernetes_conn_id='k8s',
+        retries=3,
         application_file="config_spark.yaml",
         namespace='spark-operator',
+        api_group="sparkoperator.k8s.io",
+        api_version="v1beta2",
         do_xcom_push=True,
         dag=dag,
     )
 
-    t2 = SparkKubernetesSensor(
-        task_id="check_spark_app",
-        kubernetes_conn_id='k8s',
-        application_name="cf0001",
-        namespace='spark-operator',
-        dag=dag,
-    )
-    t1 >> t2
+    # t2 = SparkKubernetesSensor(
+    #     task_id="check_spark_app",
+    #     kubernetes_conn_id='k8s',
+    #     application_name="cf0001",
+    #     namespace='spark-operator',
+    #     dag=dag,
+    # )
+    # t1 >> t2
 

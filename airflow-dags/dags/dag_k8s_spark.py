@@ -5,6 +5,7 @@ from datetime import datetime, timedelta
 from airflow import DAG
 from airflow.providers.cncf.kubernetes.operators.spark_kubernetes import SparkKubernetesOperator
 from airflow.providers.cncf.kubernetes.sensors.spark_kubernetes import SparkKubernetesSensor
+from provider.k8s.operator import CustomSparkK8sOperator_trigger
 
 with DAG(
     'airflow-call-spark-on-k8s',
@@ -15,7 +16,7 @@ with DAG(
     catchup=False,
 ) as dag:
     # [START SparkKubernetesOperator_DAG]
-    t1 = SparkKubernetesOperator(
+    t1 = CustomSparkK8sOperator_trigger(
         task_id="spark_cf0001",
         trigger_rule="all_success",
         depends_on_past=False,

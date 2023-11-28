@@ -38,13 +38,13 @@ spec:
   driver:
     cores: 1
     coreLimit: "1200m"
-    memory: "100m"
+    memory: "512m"
     labels:
       version: 3.1.1
     serviceAccount: my-release-spark-operator
   executor:
     cores: 1
     instances: 1
-    memory: "100m"
+    memory: "512m"
     labels:
       version: 3.1.1

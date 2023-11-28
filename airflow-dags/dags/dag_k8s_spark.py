@@ -11,7 +11,7 @@ with DAG(
     'airflow-call-spark-on-k8s',
     default_args={"max_active_runs": 1},
     description="submit spark-pi as sparkApplication on kubernetes",
-    schedule=timedelta(days=1),
+    schedule=None,
     start_date=datetime(2021, 11, 20),
     catchup=False,
 ) as dag:

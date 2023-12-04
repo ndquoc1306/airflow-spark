@@ -32,7 +32,7 @@ with DAG(
         do_xcom_push=True,
         dag=dag,
     )
-    merge_stg_to_dwh = 'call merge_cf0001_stg_to_dwh();'
+    merge_stg_to_dwh = 'call stg.merge_cf0001_stg_to_dwh();'
     call_produce = PostgresOperator(
         task_id='merge_stg_to_dwh',
         sql=merge_stg_to_dwh,

@@ -17,8 +17,8 @@ with DAG(
         catchup=False,
 ) as dag:
     # [START SparkKubernetesOperator_DAG]
-    # start = EmptyOperator(task_id='Start')
-    # end = EmptyOperator(task_id='End')
+    start = EmptyOperator(task_id='Start')
+    end = EmptyOperator(task_id='End')
     t1 = CustomSparkK8sOperator_trigger(
         task_id="spark_cf0001",
         trigger_rule="all_success",
@@ -32,12 +32,12 @@ with DAG(
         do_xcom_push=True,
         dag=dag,
     )
-    # merge_stg_to_dwh = 'call merge_cf0001_stg_to_dwh()'
-    # call_produce = PostgresOperator(
-    #     task_id='merge_stg_to_dwh',
-    #     sql=merge_stg_to_dwh,
-    #     postgres_conn_id='dwh',
-    #     autocommit=True
-    # )
+    merge_stg_to_dwh = 'call merge_cf0001_stg_to_dwh()'
+    call_produce = PostgresOperator(
+        task_id='merge_stg_to_dwh',
+        sql=merge_stg_to_dwh,
+        postgres_conn_id='dwh',
+        autocommit=True
+    )
 
-    # start >> t1 >> call_produce >> end
+    start >> t1 >> call_produce >> end

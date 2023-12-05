@@ -9,9 +9,9 @@ from provider.k8s.operator import CustomSparkK8sOperator_trigger
 from airflow.providers.postgres.operators.postgres import PostgresOperator
 
 with DAG(
-        'airflow-call-spark-on-k8s',
+        'cf0001_1',
         default_args={"max_active_runs": 1},
-        description="submit spark-pi as sparkApplication on kubernetes",
+        description="submit sparkApplication on kubernetes",
         schedule=None,
         start_date=datetime(2021, 11, 20),
         catchup=False,
@@ -32,12 +32,12 @@ with DAG(
         do_xcom_push=True,
         dag=dag,
     )
-    merge_stg_to_dwh = 'call stg.merge_cf0001_stg_to_dwh();'
-    call_produce = PostgresOperator(
-        task_id='merge_stg_to_dwh',
-        sql=merge_stg_to_dwh,
-        postgres_conn_id='dwh',
-        autocommit=True
-    )
-
-    start >> t1 >> call_produce >> end
+    # merge_stg_to_dwh = 'call stg.merge_ln0006_stg_to_dwh();'
+    # call_produce = PostgresOperator(
+    #     task_id='merge_stg_to_dwh',
+    #     sql=merge_stg_to_dwh,
+    #     postgres_conn_id='dwh',
+    #     autocommit=True
+    # )
+    #
+    # start >> t1 >> call_produce >> end

@@ -10,7 +10,7 @@ from airflow.providers.postgres.operators.postgres import PostgresOperator
 
 with DAG(
         'ln0006',
-        default_args={"max_active_runs": 1},
+        default_args={"max_active_runs": 1,},
         schedule=None,
         start_date=datetime(2021, 11, 20),
         catchup=False,
@@ -31,12 +31,12 @@ with DAG(
         do_xcom_push=True,
         dag=dag,
     )
-    merge_stg_to_dwh = 'call stg.merge_ln0006_stg_to_dwh();'
-    call_produce = PostgresOperator(
-        task_id='merge_stg_to_dwh',
-        sql=merge_stg_to_dwh,
-        postgres_conn_id='dwh',
-        autocommit=True
-    )
+    # merge_stg_to_dwh = 'call stg.merge_ln0006_stg_to_dwh();'
+    # call_produce = PostgresOperator(
+    #     task_id='merge_stg_to_dwh',
+    #     sql=merge_stg_to_dwh,
+    #     postgres_conn_id='dwh',
+    #     autocommit=True
+    # )
 
-    start >> t1 >> call_produce >> end
+    # start >> t1 >> call_produce >> end

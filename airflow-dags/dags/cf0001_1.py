@@ -32,12 +32,12 @@ with DAG(
         do_xcom_push=True,
         dag=dag,
     )
-    # merge_stg_to_dwh = 'call stg.merge_ln0006_stg_to_dwh();'
-    # call_produce = PostgresOperator(
-    #     task_id='merge_stg_to_dwh',
-    #     sql=merge_stg_to_dwh,
-    #     postgres_conn_id='dwh',
-    #     autocommit=True
-    # )
-    #
-    # start >> t1 >> call_produce >> end
+    merge_stg_to_dwh = 'call stg.merge_ln0006_stg_to_dwh();'
+    call_produce = PostgresOperator(
+        task_id='merge_stg_to_dwh',
+        sql=merge_stg_to_dwh,
+        postgres_conn_id='dwh',
+        autocommit=True
+    )
+
+    start >> t1 >> call_produce >> end

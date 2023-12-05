@@ -19,7 +19,7 @@
 apiVersion: "sparkoperator.k8s.io/v1beta2"
 kind: SparkApplication
 metadata:
-  name: ln0006
+  name: cf0001
   namespace: spark-operator
 spec:
   type: Python
